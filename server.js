@@ -27,18 +27,30 @@ router.use(function(req, res, next) {
 });
 
 
-router.route('/bears').post(function(req,res){
+router.route('/bears')
+
+
+.post(function(req,res){
     var bear=new Bear();
     bear.name= req.body.name;
 
     bear.save(function(err) {
             if (err)
-                res.send("cc"+err);
+                res.send(err);
 
             res.json({ message: 'Bear created!' });
         });
 
 })
+
+.get(function(req, res) {
+        Bear.find(function(err, bears) {
+            if (err)
+                res.send(err);
+
+            res.json(bears);
+        });
+    });
 
 
 
